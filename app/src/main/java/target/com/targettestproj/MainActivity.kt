@@ -71,6 +71,7 @@ class MainActivityViewModel : BaseViewModel() {
         val observable = foodListObservable?.subscribeOn(Schedulers.io())
             ?.observeOn(AndroidSchedulers.mainThread())
             ?.subscribe(this::handleResult)
+        observable?.let { compositeDisposable.add(it) }
     }
 
     private fun handleResult(list : List<GitAccount>?) {
