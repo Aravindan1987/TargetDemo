@@ -18,11 +18,13 @@ import target.com.targettestproj.databinding.ActivityMainBinding
 import target.com.targettestproj.databinding.ItemGitUserBinding
 import target.com.targettestproj.model.GitAccount
 import target.com.targettestproj.task.APIBuilder
+import target.com.targettestproj.utils.ImageDownloadUtils
 
 class MainActivity : BaseActivity() {
 
     private lateinit var binding : ActivityMainBinding
     private lateinit var viewModel : MainActivityViewModel
+    private lateinit var adapter : GitUserListAdapter
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -44,7 +46,13 @@ class MainActivity : BaseActivity() {
     }
 
     private fun onListObtained(list : List<GitAccount>) {
-
+        if (binding.foodListView.adapter == null) {
+            adapter = GitUserListAdapter(list)
+            binding.foodListView.adapter = adapter
+        } else {
+            adapter.gitAccountsList = list
+            adapter.notifyDataSetChanged()
+        }
     }
 }
 
@@ -70,7 +78,7 @@ class MainActivityViewModel : BaseViewModel() {
     }
 }
 
-class GitUserListAdapter(val gitAccountsList: List<GitAccount>) : RecyclerView.Adapter<GitUserListAdapter.FoodListViewHolder> () {
+class GitUserListAdapter(var gitAccountsList: List<GitAccount>) : RecyclerView.Adapter<GitUserListAdapter.FoodListViewHolder> () {
 
     override fun onCreateViewHolder(p0: ViewGroup, p1: Int): FoodListViewHolder {
         val itemBinding = ItemGitUserBinding.inflate(LayoutInflater.from(p0.context), p0, false)
@@ -96,7 +104,7 @@ class GitUserListAdapter(val gitAccountsList: List<GitAccount>) : RecyclerView.A
         companion object {
             @BindingAdapter("app:image_url") @JvmStatic
             fun ImageView.loadImage(url:String) {
-
+                ImageDownloadUtils.downloadImage(url, this)
             }
         }
 
