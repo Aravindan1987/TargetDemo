@@ -35,6 +35,7 @@ class MainActivity : BaseActivity() {
         super.onCreate(savedInstanceState)
         binding = DataBindingUtil.setContentView(this, R.layout.activity_main)
         viewModel = ViewModelProviders.of(this).get(MainActivityViewModel::class.java)
+        binding.viewModel = viewModel
         initializeObservers()
         initializeView()
         viewModel.createView()
@@ -129,7 +130,7 @@ class GitUserListAdapter(var gitAccountsList: List<GitAccount>) : RecyclerView.A
 
         val name = gitAccount.name
         val username = gitAccount.username
-        val imageUrl : String? = gitAccount.url
+        val imageUrl : String? = gitAccount.avatar
     }
 }
 

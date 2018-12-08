@@ -36,7 +36,7 @@ open class APIBuilder {
     }
 
     companion object {
-        const val BASE_URL = "github-trending-api.now.sh"
+        const val BASE_URL = "https://github-trending-api.now.sh"
 
         private var builder : APIBuilder? = null
         fun getInstance() : APIBuilder {
