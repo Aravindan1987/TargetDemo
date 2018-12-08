@@ -2,4 +2,7 @@
     <string name="app_name">TargetTestProj</string>
 
     <string name="repo_details">Repo Details</string>
+
+    <string name="title_accounts">Git Accounts</string>
+    <string name="title_account_details">Git Account Details</string>
 </resources>

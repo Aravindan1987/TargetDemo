@@ -24,6 +24,7 @@ import target.com.targettestproj.databinding.ItemGitUserBinding
 import target.com.targettestproj.model.GitAccount
 import target.com.targettestproj.task.APIBuilder
 import target.com.targettestproj.utils.ImageDownloadUtils
+import target.com.targettestproj.utils.ResourceUtils
 
 class MainActivity : BaseActivity() {
 
@@ -46,6 +47,8 @@ class MainActivity : BaseActivity() {
             list?.let { onListObtained(it) }
         })
     }
+
+    override fun getScreenTitle(): String? = ResourceUtils.getString(R.string.title_accounts)
 
     private fun initializeView() {
         initializeListView(binding.foodListView)

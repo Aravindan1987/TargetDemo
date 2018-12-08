@@ -8,6 +8,7 @@ import target.com.targettestproj.base.BaseViewModel
 import target.com.targettestproj.constants.IntentConstants
 import target.com.targettestproj.databinding.ActivityGitAccountDetailBinding
 import target.com.targettestproj.model.GitAccount
+import target.com.targettestproj.utils.ResourceUtils
 
 class GitAccountDetailActivity : BaseActivity() {
     private lateinit var binding : ActivityGitAccountDetailBinding
@@ -19,11 +20,14 @@ class GitAccountDetailActivity : BaseActivity() {
         gitAccount = bundle.getParcelable(IntentConstants.GIT_ACCOUNT)
     }
 
+    override fun getScreenTitle(): String? = ResourceUtils.getString(R.string.title_account_details)
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = DataBindingUtil.setContentView(this, R.layout.activity_git_account_detail)
         viewModel = GitAccountDetailViewModel(gitAccount)
         binding.viewModel = viewModel
+        supportActionBar?.setDisplayHomeAsUpEnabled(true)
     }
 }
 
