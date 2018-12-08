@@ -3,6 +3,7 @@ package target.com.targettestproj
 import android.arch.lifecycle.MutableLiveData
 import android.arch.lifecycle.Observer
 import android.arch.lifecycle.ViewModelProviders
+import android.content.Intent
 import android.databinding.BindingAdapter
 import android.databinding.DataBindingUtil
 import android.os.Bundle
@@ -12,8 +13,12 @@ import android.view.ViewGroup
 import android.widget.ImageView
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.schedulers.Schedulers
+import org.greenrobot.eventbus.EventBus
+import target.com.targettestproj.activity.GitAccountDetailActivity
 import target.com.targettestproj.base.BaseActivity
 import target.com.targettestproj.base.BaseViewModel
+import target.com.targettestproj.base.Event
+import target.com.targettestproj.constants.IntentConstants
 import target.com.targettestproj.databinding.ActivityMainBinding
 import target.com.targettestproj.databinding.ItemGitUserBinding
 import target.com.targettestproj.model.GitAccount
@@ -54,6 +59,17 @@ class MainActivity : BaseActivity() {
             adapter.notifyDataSetChanged()
         }
     }
+
+    override fun onEventReceived(event: Event) {
+        super.onEventReceived(event)
+        when (event) {
+            is GitAccountCLickedEvent -> {
+                val intent = Intent(this, GitAccountDetailActivity::class.java)
+                intent.putExtra(IntentConstants.GIT_ACCOUNT, event.gitAccount)
+                startActivity(intent)
+            }
+        }
+    }
 }
 
 class MainActivityViewModel : BaseViewModel() {
@@ -87,7 +103,9 @@ class GitUserListAdapter(var gitAccountsList: List<GitAccount>) : RecyclerView.A
     }
 
     override fun onBindViewHolder(p0: FoodListViewHolder, p1: Int) {
-        p0.bind(gitAccountsList[p1])
+        val item = gitAccountsList[p1]
+        p0.itemView.setOnClickListener { EventBus.getDefault().post(GitAccountCLickedEvent(item)) }
+        p0.bind(item)
     }
 
     override fun getItemCount(): Int  = gitAccountsList.size
@@ -114,3 +132,5 @@ class GitUserListAdapter(var gitAccountsList: List<GitAccount>) : RecyclerView.A
         val imageUrl : String? = gitAccount.url
     }
 }
+
+class GitAccountCLickedEvent(val gitAccount: GitAccount) : Event()
