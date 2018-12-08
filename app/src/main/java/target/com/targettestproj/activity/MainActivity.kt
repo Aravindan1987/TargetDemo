@@ -17,6 +17,7 @@ import org.greenrobot.eventbus.EventBus
 import target.com.targettestproj.R
 import target.com.targettestproj.base.BaseActivity
 import target.com.targettestproj.base.BaseViewModel
+import target.com.targettestproj.base.BaseViewModel.Companion.loadImage
 import target.com.targettestproj.base.Event
 import target.com.targettestproj.constants.IntentConstants
 import target.com.targettestproj.databinding.ActivityMainBinding
@@ -130,8 +131,8 @@ class GitUserListAdapter(var gitAccountsList: List<GitAccount>) : RecyclerView.A
 
         companion object {
             @BindingAdapter("app:image_url") @JvmStatic
-            fun ImageView.loadImage(url:String) {
-                ImageDownloadUtils.downloadImage(url, this)
+            fun ImageView.loadImage(url:String?) {
+                url?.let { ImageDownloadUtils.downloadImage(it, this) }
             }
         }
 

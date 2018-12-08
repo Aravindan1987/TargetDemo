@@ -10,8 +10,8 @@ open class BaseViewModel : ViewModel() {
 
     companion object {
         @BindingAdapter("app:image_url") @JvmStatic
-        fun ImageView.loadImage(url:String) {
-            ImageDownloadUtils.downloadImage(url, this)
+        fun ImageView.loadImage(url:String?) {
+            url?.let { ImageDownloadUtils.downloadImage(it, this) }
         }
     }
 
