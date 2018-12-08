@@ -1,14 +1,14 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layout>
     <data>
-        <variable name="viewModel" type="target.com.targettestproj.MainActivityViewModel"/>
+        <variable name="viewModel" type="target.com.targettestproj.activity.MainActivityViewModel"/>
     </data>
     <android.support.constraint.ConstraintLayout
             xmlns:android="http://schemas.android.com/apk/res/android"
             xmlns:tools="http://schemas.android.com/tools"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            tools:context=".MainActivity">
+            tools:context=".activity.MainActivity">
 
         <android.support.v7.widget.RecyclerView
                 android:layout_width="match_parent"

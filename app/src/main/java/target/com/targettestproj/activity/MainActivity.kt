@@ -1,4 +1,4 @@
-package target.com.targettestproj
+package target.com.targettestproj.activity
 
 import android.arch.lifecycle.MutableLiveData
 import android.arch.lifecycle.Observer
@@ -14,7 +14,7 @@ import android.widget.ImageView
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.schedulers.Schedulers
 import org.greenrobot.eventbus.EventBus
-import target.com.targettestproj.activity.GitAccountDetailActivity
+import target.com.targettestproj.R
 import target.com.targettestproj.base.BaseActivity
 import target.com.targettestproj.base.BaseViewModel
 import target.com.targettestproj.base.Event
@@ -105,7 +105,11 @@ class GitUserListAdapter(var gitAccountsList: List<GitAccount>) : RecyclerView.A
 
     override fun onBindViewHolder(p0: FoodListViewHolder, p1: Int) {
         val item = gitAccountsList[p1]
-        p0.itemView.setOnClickListener { EventBus.getDefault().post(GitAccountCLickedEvent(item)) }
+        p0.itemView.setOnClickListener { EventBus.getDefault().post(
+            GitAccountCLickedEvent(
+                item
+            )
+        ) }
         p0.bind(item)
     }
 
